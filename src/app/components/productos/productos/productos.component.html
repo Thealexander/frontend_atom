@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="title">
+    <h2>Listado de Productos</h2>
+    <button type="button" class="btn btn-dark" routerLink="/add">Agregar</button>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--TODO: Fix NG0303: Can't bind to 'ngforOf-->
+      <tr *ngfor="let item of listProducts" class="table-active">
+        <td> {{ item.codigoBarra }}</td>
+        <td>{{ item.marca }}</td>
+        <td>{{item.precio | currency}}</td>
+        <td>
+          <button routerLink="/edit/{{item.id}}" type="button" class="btn btn-primary btn-sm">Editar</button>
+          <button type="button" class="btn btn-secondary btn-sm ms-2">Eliminar</button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

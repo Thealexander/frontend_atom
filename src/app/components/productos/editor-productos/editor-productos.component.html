@@ -1,0 +1,20 @@
+<div class="row" mt-1>
+  <div class="col-lg-4 offset-lg-4">
+    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+      <div class="card-header text-center">Agregar Producto</div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="addProduct()">
+          <input formControlName="codigoBarra" type="text" class="form-control" placeholder="Codigo de Barras">
+          <input formControlName="descripcion" type="text" class="form-control mt-2" placeholder="Descripcion del Producto">
+          <span *ngIf="form.get('descripcion')?.hasError('required') && form.get('descripcion')?.touched" >Nombre es <strong>requerido</strong></span>
+          <input formControlName="marca" type="text" class="form-control mt-2" placeholder="Marca">
+          <input formControlName="precio" type="number" class="form-control mt-2" placeholder="Precio">
+          <input formControlName="dCategoria" type="text" class="form-control mt-2" placeholder="Categoria">
+          <div class="row mt-2 text-center">
+            <div class="col-lg-6"><button [disabled]="form.invalid" type="submit" class="btn btn-primary">Crear</button></div>
+            <div class="col-lg-6"><button type="button" routerLink="/" class="btn btn-success">Regresar</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
