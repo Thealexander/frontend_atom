@@ -1,0 +1,95 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid"
+          alt="Illustration showing login concept"
+        />
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          role="form"
+          aria-labelledby="loginTitle"
+        >
+          <h1 id="loginTitle" class="visually-hidden">Login Form</h1>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example3">Email address</label>
+            <input
+              type="email"
+              id="form3Example3"
+              class="form-control form-control-lg"
+              formControlName="email"
+              placeholder="Enter a valid email address"
+              aria-describedby="emailHelp"
+              aria-required="true"
+            />
+            <div
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              class="text-danger"
+              id="emailHelp"
+            >
+              Valid email is required
+            </div>
+          </div>
+
+          <!-- Remember me checkbox -->
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="form-check mb-0">
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                id="form2Example3"
+                aria-label="Remember me"
+              />
+               <!-- <label class="form-check-label" for="form2Example3">Remember me</label> -->
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg"
+              [disabled]="loginForm.invalid"
+              style="padding-left: 2.5rem; padding-right: 2.5rem"
+              aria-label="Log in to your account"
+            >
+              Login
+            </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              Don't have an account?
+              <a
+                (click)="goToRegister()"
+                class="link-danger"
+                style="cursor: pointer"
+                role="link"
+                tabindex="0"
+                aria-label="Register for a new account"
+                >Register</a
+              >
+            </p>
+          </div>
+
+          <!-- Error message -->
+          <div
+            *ngIf="errorMessage"
+            class="text-danger text-center mt-2"
+            role="alert"
+            aria-live="assertive"
+          >
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

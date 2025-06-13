@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { reverseAuthGuard } from './auth/guard/reverse-auth.guard';
 
-//componentes
-import { EditorProductosComponent } from './components/productos/editor-productos/editor-productos.component';
-import { ProductosComponent } from './components/productos/productos/productos.component';
 const routes: Routes = [
-  {path: '', component: ProductosComponent},
-  {path:'add', component: EditorProductosComponent},
-  {path:'edit/:id', component:EditorProductosComponent},
-  {path:'**', redirectTo:'', pathMatch:'full'}
-
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [reverseAuthGuard]
+  },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  {
+    path: 'task',
+    loadChildren: () => import('./task/task.module').then((m) => m.TaskModule),
+  },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

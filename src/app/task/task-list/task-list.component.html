@@ -1,0 +1,193 @@
+<h2 class="mt-4" id="taskHeading">Welcome to your tasks</h2>
+<p id="taskDescription">
+  Here you'll be able to view, edit, and manage your personal tasks.
+</p>
+
+<table
+  class="table align-middle mb-0 bg-white"
+  aria-labelledby="taskHeading taskDescription"
+  role="table"
+>
+  <thead class="bg-light">
+    <tr role="row">
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Status</th>
+      <th class="text-center" scope="col">Completed</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks; trackBy: trackByTaskId" role="row">
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>
+        <span
+          [ngClass]="{
+            'badge bg-danger text-white': task.priority === 'high',
+            'badge bg-warning text-dark': task.priority === 'medium',
+            'badge bg-success text-dark': task.priority === 'low'
+          }"
+          role="status"
+          [attr.aria-label]="'Priority: ' + task.priority"
+        >
+          {{ task.priority }}
+        </span>
+      </td>
+      <td>{{ task.dueDate }}</td>
+      <td>{{ task.status }}</td>
+      <td class="text-center">
+        <input
+          type="checkbox"
+          [checked]="task.status === 'completed'"
+          (change)="onMarkComplete(task)"
+          [attr.aria-checked]="task.status === 'completed'"
+          [attr.aria-label]="'Mark task ' + task.title + ' as completed'"
+        />
+      </td>
+      <td>
+        <button
+          class="btn btn-outline-primary btn-sm me-1"
+          (click)="editTask(task)"
+          [disabled]="task.status === 'completed'"
+          [attr.aria-label]="'Edit task ' + task.title"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-outline-danger btn-sm"
+          (click)="deleteTask(task._id!)"
+          [attr.aria-label]="'Delete task ' + task.title"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal para editar tarea -->
+<div
+  class="modal fade"
+  #editModal
+  id="editTaskModal"
+  tabindex="-1"
+  aria-labelledby="editTaskModalLabel"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form
+        (ngSubmit)="saveChanges()"
+        [formGroup]="editForm"
+        aria-label="Edit task form"
+      >
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTaskModalLabel">
+            {{ selectedTask ? "Edit Task" : "New Task" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close modal"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              id="title"
+              class="form-control"
+              formControlName="title"
+              aria-required="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              id="description"
+              class="form-control"
+              formControlName="description"
+              aria-required="true"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select
+              id="priority"
+              class="form-select"
+              formControlName="priority"
+              aria-required="true"
+            >
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">Due Date</label>
+            <input
+              id="dueDate"
+              type="date"
+              class="form-control"
+              formControlName="dueDate"
+              aria-required="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select
+              id="status"
+              class="form-select"
+              formControlName="status"
+              aria-required="true"
+            >
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            aria-label="Save changes"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            aria-label="Cancel changes"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Botón flotante -->
+<button
+  class="btn btn-success rounded-circle shadow"
+  style="
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    z-index: 1050;
+  "
+  (click)="addNewTask()"
+  aria-label="Add new task"
+>
+  +
+</button>

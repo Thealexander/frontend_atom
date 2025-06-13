@@ -1,39 +1,34 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthRoutingModule } from './auth/auth-routing.module';
 
 import { AppComponent } from './app.component';
-import { ProductosComponent } from './components/productos/productos/productos.component';
-import { CategoriasComponent } from './components/categorias/categorias/categorias.component';
-import { EditorCategoriasComponent } from './components/categorias/editor-categorias/editor-categorias.component';
-import { EditorProductosComponent } from './components/productos/editor-productos/editor-productos.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { AuthInterceptor } from './auth/guard/auth.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavBarComponent,
-    ProductosComponent,
-    CategoriasComponent,
-    EditorCategoriasComponent,
-    EditorProductosComponent,
-
-
-
-  ],
+  declarations: [AppComponent, NavBarComponent, FooterComponent],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    AuthRoutingModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

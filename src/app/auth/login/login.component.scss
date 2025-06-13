@@ -1,0 +1,26 @@
+.vh-100 {
+  min-height: 100vh;
+}
+
+.text-danger {
+  font-size: 0.9rem;
+}
+
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+form {
+  .form-outline {
+    position: relative;
+
+    input.ng-invalid.ng-touched {
+      border-color: #dc3545;
+    }
+
+    .form-label {
+      font-weight: 500;
+    }
+  }
+}
