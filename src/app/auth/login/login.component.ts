@@ -23,6 +23,8 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
+    const spy = jasmine.createSpyObj('AuthService', ['login', 'isLoggedIn']);
+    spy.isLoggedIn.and.returnValue(false); // o true
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/task']);
     }
