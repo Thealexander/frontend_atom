@@ -46,4 +46,4 @@ github.com/Thealexander/backend_atom
 
 ## Testing Server
 https://api-nuxoiaxfea-uc.a.run.app --->api
-https://atombackend-52e86.web.app/task  --->webservice
+https://atombackend-52e86.web.app/api  --->webservice
