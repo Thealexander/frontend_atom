@@ -1,27 +1,49 @@
-# Webservice
+## Frontend - Angular App (Atom)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.4.
+Este proyecto representa el frontend de una aplicación para gestión de tareas y autenticación de usuarios, desarrollado con Angular 17 y consumiendo una API construida en Node.js bajo arquitectura DDD (Domain-Driven Design).
 
-## Development server
+##  Tecnologías principales
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Angular](https://angular.io/) 17+
+- [RxJS](https://rxjs.dev/)
+- [Firebase Auth](https://firebase.google.com/docs/auth)
+- [Bootstrap](https://getbootstrap.com/) o [Angular Material](https://material.angular.io/) (si aplica)
+- Comunicación con backend vía HTTP usando [HttpClient](https://angular.io/guide/http)
 
-## Code scaffolding
+##  Instalación
+En la terminal
+# Clonar el repositorio
+git clone https://github.com/TU_USUARIO/atom-frontend.git
+cd atom-frontend
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Instalar dependencias
+npm install
 
-## Build
+## Entorno de desarrollo
+src/environments/environment.ts
+ejecutar: ng serve
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Estructura de entorno
+src/
+├── app/
+│   ├── components/       
+|          ├── footer
+|          ├── nav-bar
+│   ├── auth/            # Componentes y lógica de login/register
+│   ├── tasks/           # Módulo de tareas
+│   ├── interfaces/           
+│   └── app-routing.module.ts
+├── assets/
+├── environments/
+└── index.html
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Documentación de la API
+https://documenter.getpostman.com/view/19671366/2sB2x8DqxJ
 
-## Running end-to-end tests
+## Backend 
+github.com/Thealexander/backend_atom
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Testing Server
+https://api-nuxoiaxfea-uc.a.run.app --->api
+https://atombackend-52e86.web.app/task  --->webservice
